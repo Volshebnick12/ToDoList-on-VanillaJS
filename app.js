@@ -2,8 +2,6 @@ let addMessage = document.querySelector('.message');
 let addButton = document.querySelector('.add');
 let todo = document.querySelector('.todo');
 
-let todoList = [];
-
 if (localStorage.getItem('todo')) {
     todoList = JSON.parse(localStorage.getItem('todo'));
     displayMessages();
@@ -64,7 +62,9 @@ todo.addEventListener('change', function (event) {
 
 todo.addEventListener('contextmenu', function (event) {
     event.preventDefault();
+
     todoList.forEach(function (item, i) {
+
         if (item.todo === event.target.innerHTML) {
             if (event.ctrlKey || event.metaKey) {
                 todoList.splice(i, 1);
@@ -74,5 +74,6 @@ todo.addEventListener('contextmenu', function (event) {
             displayMessages();
             localStorage.setItem('todo', JSON.stringify(todoList));
         }
+        x1 = null;
     });
 });
