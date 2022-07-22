@@ -42,6 +42,8 @@ function displayMessages() {
         <li>
             <input type='checkbox' id='item_${i}'${item.checked ? 'checked' : ''}>
             <label for='item_${i}' class="${item.important ? 'important' : 'todo-li'}">${item.todo}</label>
+            <button class="dell" id="dell">X</button>
+            <button class="mark" id="mark">&#33;</button>
         </li>
         `;
         todo.innerHTML = displayMessages;
@@ -59,6 +61,18 @@ todo.addEventListener('change', function (event) {
     });
 });
 
+todo.addEventListener('click', function (event) {
+    if (event.target.className === 'dell') {
+        const i = [].indexOf.call(todo.children, event.target.parentNode);
+        todoList.splice(i, 1);
+    } else if (event.target.className === 'mark') {
+        const i = [].indexOf.call(todo.children, event.target.parentNode);
+        console.log(i, todo, event.target);
+        todoList[i].important = !todoList[i].important;
+    }
+    displayMessages();
+    localStorage.setItem('todo', JSON.stringify(todoList));
+});
 
 todo.addEventListener('contextmenu', function (event) {
     event.preventDefault();
@@ -74,6 +88,5 @@ todo.addEventListener('contextmenu', function (event) {
             displayMessages();
             localStorage.setItem('todo', JSON.stringify(todoList));
         }
-        x1 = null;
     });
 });
